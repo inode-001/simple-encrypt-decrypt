@@ -1,6 +1,6 @@
 def cipher (key,message,mode):
     translated = ''
-    SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?."
+    SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 .?!'
     for symbol in message:
         if symbol in SYMBOLS:
             symbolIndex = SYMBOLS.find(symbol)
@@ -19,10 +19,25 @@ def cipher (key,message,mode):
         else:
             translated = translated + symbol
     return translated
+def bruteForce(message):
+     SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 .?!'
+
+     for key in range(len(SYMBOLS)):
+          decrypted = ''
+          for text in message:
+               if text in SYMBOLS:
+                    textIndex = SYMBOLS.find(text)
+                    decryptIndex = textIndex - key 
+                    if decryptIndex < 0:
+                         decryptIndex = decryptIndex + len(SYMBOLS)
+                    decrypted+=SYMBOLS[decryptIndex]
+               else:
+                decrypted+=text
+          print(f"Try:#{key} : {decrypted}")
 
 print("Welcome to caesar cipher".center(50,'*'),"\n\n")
 
-print("Would you like to (input either 1 or 2): \n\t 1) Encrypt message \n\t 2) Decrypt Message")
+print("Would you like to (input either 1 or 2): \n\t 1) Encrypt message \n\t 2) Decrypt Message \n\t 3) Brute force (in case you forgot the encryption key) \n\t 0) Exit")
 
 option = str(input(": > "))
 
@@ -39,7 +54,12 @@ elif option == "2":
      key = int(input("Enter key used to decrypt the message : (use integers only) : "))
 
      decrypted = cipher(key,message,mode)
-     print(f"\nDecrypted message is : {decrypted}")
-
+     print(f"\nDecrypted message is :{decrypted}")
+elif option == "3":
+     message = str(input("Enter message to bruteforce : "))
+     bruteForce(message)
+elif option == "0":
+     quit()
+     
 else:
-     print("\nInvalid option input either 1 or 2")
+     print("\nInvalid option input either 1,2,3 or 0")
