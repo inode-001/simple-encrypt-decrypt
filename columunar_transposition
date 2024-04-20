@@ -1,4 +1,4 @@
-def encryptMessage(key,message):
+def encrypt_message(key,message):
         cipherText = [''] * key
         for column in range(key):
                currentIndex = column
@@ -9,6 +9,20 @@ def encryptMessage(key,message):
                         currentIndex += key
 
         return ''.join(cipherText)
+
 message = str(input("Enter message to encrypt : "))
 key = int(input("Enter encryption key : "))
-print(f"Encrypted message is : {encryptMessage(key,message)}")
+print(f"Encrypted message is : {encrypt_message(key,message)}")
+
+
+def encrypt(key,message):
+        cipherText = [''] * key
+        for column in range(key):
+               currentIndex = column
+
+               while currentIndex < len(message):
+                        cipherText[column] += message[currentIndex]
+
+                        currentIndex += key
+
+        return ''.join(cipherText)
